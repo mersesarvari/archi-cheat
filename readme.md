@@ -23,8 +23,8 @@ Built with **Patchright** (Playwright wrapper), **Tesseract.js**, and **Google G
 1. Clone the repository:
 
 ```bash
-git clone <repository-url>
-cd <repository-folder>
+git clone https://github.com/mersesarvari/archi-cheat.git
+cd archi-cheat
 ```
 
 2. Install dependencies:
