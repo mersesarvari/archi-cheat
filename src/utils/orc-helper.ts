@@ -3,7 +3,7 @@ import Tesseract from "tesseract.js";
 export async function extractTextFromImage(imagePath: string): Promise<string> {
   try {
     const { data } = await Tesseract.recognize(imagePath, "hun", {
-      logger: (m) => console.log(m), // optional: progress logging
+      logger: () => {},
     });
     return data.text;
   } catch (err) {
