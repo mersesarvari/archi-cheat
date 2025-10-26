@@ -1,0 +1,447 @@
+{
+  "settings": {
+    "languages": [
+      "en"
+    ],
+    "tag": "nlp",
+    "threshold": 0.5,
+    "autoLoad": true,
+    "autoSave": true,
+    "modelFileName": "model.nlp",
+    "executeActionsBeforeAnswers": false,
+    "calculateSentiment": true
+  },
+  "nluManager": {
+    "settings": {
+      "tag": "nlu-manager"
+    },
+    "locales": [
+      "en"
+    ],
+    "languageNames": {},
+    "domainManagers": {
+      "en": {
+        "settings": {
+          "locale": "en",
+          "trainByDomain": false,
+          "tag": "domain-manager-en",
+          "nluByDomain": {
+            "default": {
+              "className": "NeuralNlu",
+              "settings": {}
+            }
+          },
+          "useStemDict": true
+        },
+        "stemDict": {
+          "develop,front-end": {
+            "intent": "job.title",
+            "domain": "default"
+          },
+          "bachelor,degre,of,scienc": {
+            "intent": "qualification.degree",
+            "domain": "default"
+          },
+          "html": {
+            "intent": "skills.html",
+            "domain": "default"
+          },
+          "css": {
+            "intent": "skills.css",
+            "domain": "default"
+          },
+          "typescript": {
+            "intent": "skills.ts",
+            "domain": "default"
+          },
+          "react": {
+            "intent": "skills.react",
+            "domain": "default"
+          },
+          "vue": {
+            "intent": "skills.vue",
+            "domain": "default"
+          },
+          "python": {
+            "intent": "skills.python",
+            "domain": "default"
+          }
+        },
+        "intentDict": {
+          "job.title": "default",
+          "qualification.degree": "default",
+          "skills.html": "default",
+          "skills.css": "default",
+          "skills.ts": "default",
+          "skills.react": "default",
+          "skills.vue": "default",
+          "skills.python": "default"
+        },
+        "sentences": [
+          {
+            "domain": "default",
+            "utterance": "Front-end developer",
+            "intent": "job.title"
+          },
+          {
+            "domain": "default",
+            "utterance": "Bachelor of Science Degree",
+            "intent": "qualification.degree"
+          },
+          {
+            "domain": "default",
+            "utterance": "HTML",
+            "intent": "skills.html"
+          },
+          {
+            "domain": "default",
+            "utterance": "CSS",
+            "intent": "skills.css"
+          },
+          {
+            "domain": "default",
+            "utterance": "TypeScript",
+            "intent": "skills.ts"
+          },
+          {
+            "domain": "default",
+            "utterance": "React",
+            "intent": "skills.react"
+          },
+          {
+            "domain": "default",
+            "utterance": "Vue",
+            "intent": "skills.vue"
+          },
+          {
+            "domain": "default",
+            "utterance": "Python",
+            "intent": "skills.python"
+          }
+        ],
+        "domains": {
+          "master_domain": {
+            "settings": {
+              "locale": "en",
+              "tag": "nlu-en",
+              "keepStopwords": true,
+              "nonefeatureValue": 1,
+              "nonedeltaMultiplier": 1.2,
+              "spellCheck": false,
+              "spellCheckDistance": 1,
+              "filterZeros": true,
+              "log": true
+            },
+            "features": {
+              "front-end": 1,
+              "develop": 1,
+              "bachelor": 1,
+              "of": 1,
+              "scienc": 1,
+              "degre": 1,
+              "html": 1,
+              "css": 1,
+              "typescript": 1,
+              "react": 1,
+              "vue": 1,
+              "python": 1
+            },
+            "intents": {
+              "job.title": 1,
+              "qualification.degree": 1,
+              "skills.html": 1,
+              "skills.css": 1,
+              "skills.ts": 1,
+              "skills.react": 1,
+              "skills.vue": 1,
+              "skills.python": 1
+            },
+            "intentFeatures": {
+              "job.title": {
+                "front-end": 1,
+                "develop": 1
+              },
+              "qualification.degree": {
+                "bachelor": 1,
+                "of": 1,
+                "scienc": 1,
+                "degre": 1
+              },
+              "skills.html": {
+                "html": 1
+              },
+              "skills.css": {
+                "css": 1
+              },
+              "skills.ts": {
+                "typescript": 1
+              },
+              "skills.react": {
+                "react": 1
+              },
+              "skills.vue": {
+                "vue": 1
+              },
+              "skills.python": {
+                "python": 1
+              }
+            },
+            "featuresToIntent": {
+              "front-end": [
+                "job.title"
+              ],
+              "develop": [
+                "job.title"
+              ],
+              "bachelor": [
+                "qualification.degree"
+              ],
+              "of": [
+                "qualification.degree"
+              ],
+              "scienc": [
+                "qualification.degree"
+              ],
+              "degre": [
+                "qualification.degree"
+              ],
+              "html": [
+                "skills.html"
+              ],
+              "css": [
+                "skills.css"
+              ],
+              "typescript": [
+                "skills.ts"
+              ],
+              "react": [
+                "skills.react"
+              ],
+              "vue": [
+                "skills.vue"
+              ],
+              "python": [
+                "skills.python"
+              ]
+            },
+            "neuralNetwork": {
+              "settings": {
+                "locale": "en",
+                "tag": "nlu-en",
+                "keepStopwords": true,
+                "nonefeatureValue": 1,
+                "nonedeltaMultiplier": 1.2,
+                "spellCheck": false,
+                "spellCheckDistance": 1,
+                "filterZeros": true,
+                "log": true
+              },
+              "features": [
+                "front-end",
+                "develop",
+                "bachelor",
+                "of",
+                "scienc",
+                "degre",
+                "html",
+                "css",
+                "typescript",
+                "react",
+                "vue",
+                "python"
+              ],
+              "intents": [
+                "job.title",
+                "qualification.degree",
+                "skills.html",
+                "skills.css",
+                "skills.ts",
+                "skills.react",
+                "skills.vue",
+                "skills.python"
+              ],
+              "perceptrons": [
+                [
+                  6.742070198059082,
+                  6.742070198059082,
+                  -0.30689138174057007,
+                  -0.30689138174057007,
+                  -0.30689138174057007,
+                  -0.30689138174057007,
+                  -0.8143192529678345,
+                  -0.8073336482048035,
+                  -0.8023459911346436,
+                  -0.7992287874221802,
+                  -0.7971004843711853,
+                  -0.7947692275047302,
+                  0.7987430279261297
+                ],
+                [
+                  -0.25928089022636414,
+                  -0.25928089022636414,
+                  3.474794387817383,
+                  3.474794387817383,
+                  3.474794387817383,
+                  3.474794387817383,
+                  -0.4192708730697632,
+                  -0.4129604995250702,
+                  -0.40205034613609314,
+                  -0.3952251970767975,
+                  -0.3880300521850586,
+                  -0.38632893562316895,
+                  0.38650910098755775
+                ],
+                [
+                  -0.8101286292076111,
+                  -0.8101286292076111,
+                  -0.40609225630760193,
+                  -0.40609225630760193,
+                  -0.40609225630760193,
+                  -0.40609225630760193,
+                  12.38967514038086,
+                  -1.6005048751831055,
+                  -1.5926836729049683,
+                  -1.5845558643341064,
+                  -1.5761302709579468,
+                  -1.5674163103103638,
+                  1.6267460220645644
+                ],
+                [
+                  -0.8127554059028625,
+                  -0.8127554059028625,
+                  -0.40703463554382324,
+                  -0.40703463554382324,
+                  -0.40703463554382324,
+                  -0.40703463554382324,
+                  -1.5575400590896606,
+                  12.389636039733887,
+                  -1.6005442142486572,
+                  -1.5927237272262573,
+                  -1.5845967531204224,
+                  -1.576171875,
+                  1.6295137650101665
+                ],
+                [
+                  -0.8152007460594177,
+                  -0.8152007460594177,
+                  -0.40789467096328735,
+                  -0.40789467096328735,
+                  -0.40789467096328735,
+                  -0.40789467096328735,
+                  -1.5671489238739014,
+                  -1.5575779676437378,
+                  12.389596939086914,
+                  -1.600583553314209,
+                  -1.592764139175415,
+                  -1.5846376419067383,
+                  1.632004285580424
+                ],
+                [
+                  -0.8174894452095032,
+                  -0.8174894452095032,
+                  -0.40904471278190613,
+                  -0.40904471278190613,
+                  -0.40904471278190613,
+                  -0.40904471278190613,
+                  -1.5764204263687134,
+                  -1.5671353340148926,
+                  -1.5575666427612305,
+                  12.389607429504395,
+                  -1.6005772352218628,
+                  -1.5927597284317017,
+                  1.634079035700112
+                ],
+                [
+                  -0.8216323852539062,
+                  -0.8216323852539062,
+                  -0.41358697414398193,
+                  -0.41358697414398193,
+                  -0.41358697414398193,
+                  -0.41358697414398193,
+                  -1.5846017599105835,
+                  -1.5756288766860962,
+                  -1.566361665725708,
+                  -1.5568108558654785,
+                  12.390344619750977,
+                  -1.599855899810791,
+                  1.634833033020215
+                ],
+                [
+                  -0.8276263475418091,
+                  -0.8276263475418091,
+                  -0.42080482840538025,
+                  -0.42080482840538025,
+                  -0.42080482840538025,
+                  -0.42080482840538025,
+                  -1.5916516780853271,
+                  -1.5830121040344238,
+                  -1.5740679502487183,
+                  -1.5648298263549805,
+                  -1.555307388305664,
+                  12.391820907592773,
+                  1.6345124792091126
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "intentDomains": {},
+    "extraSentences": [
+      [
+        "en",
+        "Front-end developer"
+      ],
+      [
+        "en",
+        "Bachelor of Science Degree"
+      ],
+      [
+        "en",
+        "HTML"
+      ],
+      [
+        "en",
+        "CSS"
+      ],
+      [
+        "en",
+        "TypeScript"
+      ],
+      [
+        "en",
+        "React"
+      ],
+      [
+        "en",
+        "Vue"
+      ],
+      [
+        "en",
+        "Python"
+      ]
+    ]
+  },
+  "ner": {
+    "settings": {
+      "tag": "ner",
+      "entityPreffix": "%",
+      "entitySuffix": "%"
+    },
+    "rules": {}
+  },
+  "nlgManager": {
+    "settings": {
+      "tag": "nlg-manager"
+    },
+    "responses": {}
+  },
+  "actionManager": {
+    "settings": {
+      "tag": "action-manager"
+    },
+    "actions": {}
+  },
+  "slotManager": {}
+}

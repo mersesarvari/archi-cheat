@@ -1,0 +1,15 @@
+2025/10/17-16:28:13.403 3b03 Reusing MANIFEST /Users/merse/Documents/DEV/MessengerBot/JobPiler_Server/auth/playwright-profile/Default/Local Storage/leveldb/MANIFEST-000001
+2025/10/17-16:28:13.405 3b03 Recovering log #27
+2025/10/17-16:28:13.405 3b03 Reusing old log /Users/merse/Documents/DEV/MessengerBot/JobPiler_Server/auth/playwright-profile/Default/Local Storage/leveldb/000027.log 
+2025/10/17-16:34:14.260 3203 Level-0 table #30: started
+2025/10/17-16:34:14.265 3203 Level-0 table #30: 15051 bytes OK
+2025/10/17-16:34:14.268 3203 Delete type=0 #27
+2025/10/17-16:34:14.269 3203 Compacting 4@0 + 1@1 files
+2025/10/17-16:34:14.271 3203 Generated table #31@0: 719 keys, 11115 bytes
+2025/10/17-16:34:14.272 3203 Compacted 4@0 + 1@1 files => 11115 bytes
+2025/10/17-16:34:14.272 3203 compacted to: files[ 0 1 1 0 0 0 0 ]
+2025/10/17-16:34:14.274 3203 Delete type=2 #20
+2025/10/17-16:34:14.274 3203 Delete type=2 #23
+2025/10/17-16:34:14.274 3203 Delete type=2 #26
+2025/10/17-16:34:14.274 3203 Delete type=2 #18
+2025/10/17-16:34:14.274 3203 Delete type=2 #30
