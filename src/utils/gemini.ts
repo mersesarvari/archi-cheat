@@ -52,8 +52,18 @@ Use the PDF text to answer questions.`
 
 Task:
 1. Identify any questions in the input text.
-2. Answer each question (use PDF text if available).
-3. Return your answer as text.
+2. For each question, find the most relevant answer using the PDF text if available.
+3. Provide answers that are as **short and concise as possible** (preferably one sentence or a few words).
+4. Return a JSON array where each element has the structure:
+[
+  {
+    "question": "<the question text>",
+    "answer": "<the short answer text>"
+  }
+]
+5. If no questions are found, return: null
+
+**Return only valid JSON. Do not include explanations, extra text, or formatting.**
 `;
 
   const response = await client.models.generateContent({
@@ -61,13 +71,19 @@ Task:
     contents: [{ role: "user", parts: [{ text: prompt }] }],
   });
 
-  // Safely extract the text from Gemini response
+  // Extract text from Gemini response safely
   const candidate = response?.candidates?.[0];
   let outputText = "";
   if (candidate?.content?.parts) {
     outputText = candidate.content.parts.map((p: any) => p.text).join("\n");
   }
 
-  //console.log("💡 Gemini output:\n", outputText);
-  return outputText;
+  // Optional: parse JSON to ensure it's valid
+  try {
+    const parsed = JSON.parse(outputText);
+    return JSON.stringify(parsed, null, 2); // formatted JSON string
+  } catch {
+    console.warn("⚠️ Gemini did not return valid JSON. Returning raw text.");
+    return outputText;
+  }
 }

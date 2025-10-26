@@ -1,4 +1,6 @@
+import path from "path";
 import { MoodleScraper } from "./scraper/moodle-scraper";
+import { processScreenshotAndSolve } from "./utils/image-helper";
 import { loginToMoodle } from "./utils/moodle-login";
 import "dotenv/config";
 
@@ -6,6 +8,16 @@ async function main() {
   const scraper = new MoodleScraper();
   // 1️⃣ Initialize browser and page
   await scraper.init();
+
+  //Testing
+  const testImagePath = path.join(
+    process.cwd(),
+    "screenshots",
+    "test",
+    "image.png"
+  );
+  const test = await processScreenshotAndSolve(undefined, testImagePath);
+  console.log("Test result:", test);
 
   // Automate login
   await loginToMoodle(scraper.page);
