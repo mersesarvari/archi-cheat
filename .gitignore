@@ -65,7 +65,6 @@ jspm_packages
 .nuxt
 dist
 
-
 .cache/
 # Comment in the public line in if your project uses Gatsby and not Next.js
 # public
@@ -85,7 +84,9 @@ dist
 # TernJS port file
 .tern-port
 
-
 # GPT Model
 .onnx
 /src/generated/prisma
+
+# Screenshots folder (do not push)
+screenshots/
