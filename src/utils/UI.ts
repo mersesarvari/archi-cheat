@@ -1,3 +1,5 @@
+import { Page } from "patchright";
+
 /**
  * Show Gemini response in a modal on the page
  * @param page - Patchright Page instance
@@ -222,4 +224,59 @@ export async function injectToggleModalButton(page: any) {
   });
 
   console.log("✅ Toggle Modal button injected next to Screenshot button.");
+}
+
+export async function injectAutoFillShortcut(page: Page) {
+  await page.evaluate(() => {
+    document.addEventListener("keydown", async (e) => {
+      // Ctrl + O pressed
+      console.log("CTRL+O pressed");
+      if (e.ctrlKey && e.key.toLowerCase() === "o") {
+        e.preventDefault();
+
+        try {
+          const raw = (window as any).__lastGeminiText;
+          if (!raw) {
+            alert("⚠️ No Gemini response found yet!");
+            return;
+          }
+
+          // Clean and parse JSON
+          const cleaned = raw.replace(/```(?:json)?/g, "").trim();
+          const data = JSON.parse(cleaned);
+
+          if (!Array.isArray(data)) {
+            alert("⚠️ Gemini data is not in expected format.");
+            return;
+          }
+
+          // Find all text input fields and textareas
+          const fields = Array.from(
+            document.querySelectorAll("input[type='text'], textarea")
+          ) as HTMLInputElement[];
+
+          if (fields.length === 0) {
+            alert("⚠️ No input fields found on this page.");
+            return;
+          }
+
+          // Fill each field with corresponding answer
+          data.forEach((qa, index) => {
+            if (fields[index]) {
+              fields[index].value = qa.answer ?? "";
+              // trigger input events if needed for React/Vue/etc
+              fields[index].dispatchEvent(
+                new Event("input", { bubbles: true })
+              );
+            }
+          });
+
+          alert(`✅ Filled ${Math.min(data.length, fields.length)} fields!`);
+        } catch (err) {
+          console.error("❌ Failed to fill inputs:", err);
+          alert("❌ Error parsing Gemini response or filling fields.");
+        }
+      }
+    });
+  });
 }

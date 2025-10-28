@@ -3,6 +3,7 @@ import { MoodleScraper } from "./scraper/moodle-scraper";
 import { processScreenshotAndSolve } from "./utils/image-helper";
 import { loginToMoodle } from "./utils/moodle-login";
 import "dotenv/config";
+import { injectAutoFillShortcut } from "./utils/UI";
 
 async function main() {
   const scraper = new MoodleScraper();
@@ -10,19 +11,21 @@ async function main() {
   await scraper.init();
 
   //Testing
-  const testImagePath = path.join(
+  /* const testImagePath = path.join(
     process.cwd(),
     "screenshots",
     "test",
     "image.png"
   );
   const test = await processScreenshotAndSolve(undefined, testImagePath);
-
+ */
   // Automate login
   await loginToMoodle(scraper.page);
 
   // 2️⃣ Go to initial Moodle page
   await scraper.goto("https://llm.elearning.uni-obuda.hu/");
+
+  await injectAutoFillShortcut(scraper.page);
 
   // 3️⃣ Inject screenshot button (function exposed once)
   await scraper.injectScreenshotButton();
