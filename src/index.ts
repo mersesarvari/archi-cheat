@@ -10,14 +10,13 @@ async function main() {
   await scraper.init();
 
   //Testing
-  /* const testImagePath = path.join(
+  const testImagePath = path.join(
     process.cwd(),
     "screenshots",
     "test",
     "image.png"
   );
   const test = await processScreenshotAndSolve(undefined, testImagePath);
-  console.log("Test result:", test); */
 
   // Automate login
   await loginToMoodle(scraper.page);

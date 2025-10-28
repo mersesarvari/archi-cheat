@@ -71,19 +71,25 @@ Task:
     contents: [{ role: "user", parts: [{ text: prompt }] }],
   });
 
-  // Extract text from Gemini response safely
   const candidate = response?.candidates?.[0];
   let outputText = "";
+
+  // 1️⃣ Extract text from Gemini's content parts
   if (candidate?.content?.parts) {
     outputText = candidate.content.parts.map((p: any) => p.text).join("\n");
   }
 
-  // Optional: parse JSON to ensure it's valid
+  // 2️⃣ Clean up Markdown fences and whitespace
+  const cleaned = outputText
+    .replace(/```(?:json)?/g, "") // remove ```json or ```
+    .trim();
+
+  // 3️⃣ Try to parse the JSON
   try {
-    const parsed = JSON.parse(outputText);
-    return JSON.stringify(parsed, null, 2); // formatted JSON string
-  } catch {
-    console.warn("⚠️ Gemini did not return valid JSON. Returning raw text.");
-    return outputText;
+    const parsed = JSON.parse(cleaned);
+    return parsed; // or JSON.stringify(parsed, null, 2) if you want formatted string
+  } catch (err) {
+    console.warn("⚠️ Gemini did not return valid JSON:", err);
+    return cleaned; // fallback: return raw text
   }
 }
