@@ -237,7 +237,7 @@ export async function injectAutoFillShortcut(page: Page) {
         try {
           const raw = (window as any).__lastGeminiText;
           if (!raw) {
-            alert("⚠️ No Gemini response found yet!");
+            console.log("⚠️ No Gemini response found yet!");
             return;
           }
 
@@ -246,7 +246,7 @@ export async function injectAutoFillShortcut(page: Page) {
           const data = JSON.parse(cleaned);
 
           if (!Array.isArray(data)) {
-            alert("⚠️ Gemini data is not in expected format.");
+            console.log("⚠️ Gemini data is not in expected format.");
             return;
           }
 
@@ -256,7 +256,8 @@ export async function injectAutoFillShortcut(page: Page) {
           ) as HTMLInputElement[];
 
           if (fields.length === 0) {
-            alert("⚠️ No input fields found on this page.");
+            //alert("⚠️ No input fields found on this page.");
+            console.log("⚠️ No input fields found on this page.");
             return;
           }
 
