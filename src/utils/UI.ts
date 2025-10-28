@@ -144,7 +144,7 @@ export async function injectToggleModalButton(page: any) {
 
     const btn = document.createElement("button");
     btn.id = "toggle-modal-btn";
-    btn.textContent = "Toggle Modal";
+    btn.textContent = "Modal";
     btn.style.position = "fixed";
     btn.style.top = "10px";
     btn.style.left = "140px";

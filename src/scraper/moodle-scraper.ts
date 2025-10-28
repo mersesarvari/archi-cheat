@@ -13,8 +13,13 @@ export class MoodleScraper {
   screenshotFunctionExposed = false;
 
   async init() {
-    this.browser = await chromium.launch({ headless: false });
-    this.context = await this.browser.newContext();
+    this.browser = await chromium.launch({
+      headless: false,
+      args: ["--start-maximized"], // open window maximized
+    });
+    this.context = await this.browser.newContext({
+      viewport: null, // use the full available window size
+    });
     this.page = await this.context.newPage();
 
     if (!this.screenshotFunctionExposed) {
@@ -88,13 +93,10 @@ export class MoodleScraper {
   }
 
   async injectScreenshotButton() {
-    await injectButton(
-      this.page,
-      "screenshot-btn",
-      "Solve Questions",
-      "takeScreenshot",
-      { top: 10, left: 10 }
-    );
+    await injectButton(this.page, "screenshot-btn", "Solve", "takeScreenshot", {
+      top: 10,
+      left: 10,
+    });
     await injectToggleModalButton(this.page);
   }
 
