@@ -229,10 +229,9 @@ export async function injectToggleModalButton(page: any) {
 export async function injectAutoFillShortcut(page: Page) {
   await page.evaluate(() => {
     document.addEventListener("keydown", async (e) => {
-      // Ctrl + O pressed
-      console.log("CTRL+O pressed");
       if (e.ctrlKey && e.key.toLowerCase() === "o") {
         e.preventDefault();
+        console.log("⚙️ CTRL+O detected → autofilling Gemini answers…");
 
         try {
           const raw = (window as any).__lastGeminiText;
@@ -241,7 +240,7 @@ export async function injectAutoFillShortcut(page: Page) {
             return;
           }
 
-          // Clean and parse JSON
+          // Clean JSON text
           const cleaned = raw.replace(/```(?:json)?/g, "").trim();
           const data = JSON.parse(cleaned);
 
@@ -250,29 +249,39 @@ export async function injectAutoFillShortcut(page: Page) {
             return;
           }
 
-          // Find all text input fields and textareas
-          const fields = Array.from(
+          // Get all candidate input fields (text + textarea)
+          let fields = Array.from(
             document.querySelectorAll("input[type='text'], textarea")
           ) as HTMLInputElement[];
 
+          // 🔒 Exclude fields inside header/footer or your UI components
+          fields = fields.filter((el) => {
+            return !el.closest(
+              "header, footer, #header, #footer, .site-header, .site-footer, #screenshot-btn, #toggle-modal-btn, #gemini-modal"
+            );
+          });
+
           if (fields.length === 0) {
-            //alert("⚠️ No input fields found on this page.");
-            console.log("⚠️ No input fields found on this page.");
+            console.log("⚠️ No eligible input fields found on this page.");
             return;
           }
 
-          // Fill each field with corresponding answer
+          // Fill each field with the corresponding Gemini answer
           data.forEach((qa, index) => {
             if (fields[index]) {
               fields[index].value = qa.answer ?? "";
-              // trigger input events if needed for React/Vue/etc
               fields[index].dispatchEvent(
                 new Event("input", { bubbles: true })
               );
             }
           });
 
-          alert(`✅ Filled ${Math.min(data.length, fields.length)} fields!`);
+          console.log(
+            `✅ Autofilled ${Math.min(data.length, fields.length)} fields!`
+          );
+          alert(
+            `✅ Autofilled ${Math.min(data.length, fields.length)} fields!`
+          );
         } catch (err) {
           console.error("❌ Failed to fill inputs:", err);
           alert("❌ Error parsing Gemini response or filling fields.");

@@ -19,13 +19,62 @@ export class MoodleScraper {
 
     if (!this.screenshotFunctionExposed) {
       await this.page.exposeFunction("takeScreenshot", async () => {
+        console.log(
+          "📸 Taking screenshot (excluding header/footer and UI buttons)…"
+        );
+
+        // Hide header, footer, and custom UI buttons temporarily
+        await this.page.evaluate(() => {
+          const elementsToHide = [
+            document.querySelector("header"),
+            document.querySelector("footer"),
+            document.querySelector("#header"),
+            document.querySelector("#footer"),
+            document.querySelector(".site-header"),
+            document.querySelector(".site-footer"),
+            document.getElementById("screenshot-btn"),
+            document.getElementById("toggle-modal-btn"),
+            document.getElementById("gemini-modal"),
+          ].filter(Boolean) as HTMLElement[];
+
+          elementsToHide.forEach((el) => {
+            (el as any).__originalDisplay = el.style.display;
+            el.style.display = "none";
+          });
+        });
+
+        // Take screenshot and process it
         const result = await processScreenshotAndSolve(this.page);
-        // store for reopening later
+
+        // Restore hidden elements
+        await this.page.evaluate(() => {
+          const allEls = [
+            document.querySelector("header"),
+            document.querySelector("footer"),
+            document.querySelector("#header"),
+            document.querySelector("#footer"),
+            document.querySelector(".site-header"),
+            document.querySelector(".site-footer"),
+            document.getElementById("screenshot-btn"),
+            document.getElementById("toggle-modal-btn"),
+            document.getElementById("gemini-modal"),
+          ].filter(Boolean) as HTMLElement[];
+
+          allEls.forEach((el) => {
+            if ((el as any).__originalDisplay !== undefined) {
+              el.style.display = (el as any).__originalDisplay;
+              delete (el as any).__originalDisplay;
+            }
+          });
+        });
+
+        // Store and show Gemini response
         await this.page.evaluate((text: string) => {
           (window as any).__lastGeminiText = text;
         }, result);
 
         await showGeminiModal(this.page, result);
+        console.log("✅ Screenshot taken and modal displayed");
         return result;
       });
 
